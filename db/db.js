@@ -5,20 +5,6 @@ var url = 'mongodb://localhost:27017/notesapp';
 var collectionName = 'notes';
 
 
-// //===========================Connect to the database to read============================================//
-// var connect = function(){
-//     var p1 = new Promise(function(resolve,reject){
-//         MongoClient.connect(url).then(function(db){
-//             console.log("resolving from mongoclient connect");
-//             resolve(db);
-//         }).catch(function(err){
-//              console.log("rejecting from mongoclient connect");
-//         reject(err);
-//         });
-//     });
-
-//     return p1;
-// };
 
 
 //===========================Connect to the database============================================//
@@ -59,25 +45,6 @@ var readAllNotes = function(obj){
                 resolve(obj);
             }
         });
-        
-        
-        
-        
-        
-        
-        
-        
-        // var cursor = collection.find({});
-        // cursor.each(function(err,doc){
-        //     if(err){
-        //         reject(err);
-        //     }
-        //     else{
-        //         obj.doc = doc;
-        //         resolve(obj);
-        //     }
-        // });
-        
     });
     
     return p1;
@@ -86,7 +53,7 @@ var readAllNotes = function(obj){
 
 //===========================Insert the note to the database============================================//
 
-//var insertNote = function(db,title,body){
+
 var insertNote = function(obj){    
     var title = obj.title;
     var body = obj.body;
@@ -115,33 +82,27 @@ var insertNote = function(obj){
     return p1;
 };
 
+//===========================Delete the note from the database===========================================//
 
+var deleteNote = function(obj){
+    var db = obj.db;
+    var title = obj.title;
+    var body = obj.body;
 
+    var p1 = new Promise(function(resolve,reject){
+        db.collection(collectionName).deleteOne({"title":title,"body":body}, function(err,result){
+            if(err){
+                reject(err);
+            }
+            else{
+                obj.result = result;
+                resolve(obj);
+            }
+        })
 
+    });
 
-
-var insertDocument = function(db, callback) {
-   db.collection(collectionName).insertOne( {
-      "title":"a",
-      "body":"b"
-   }, function(err, result) {
-    assert.equal(err, null);
-    console.log("Inserted a document into the restaurants collection.");
-    callback();
-  });
-};
-
-
-
-
-var insert =function(){
-
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  insertDocument(db, function() {
-      db.close();
-  });
-});
+    return p1;
 };
 
 
@@ -149,9 +110,38 @@ MongoClient.connect(url, function(err, db) {
 
 
 
+// var insertDocument = function(db, callback) {
+//    db.collection(collectionName).insertOne( {
+//       "title":"a",
+//       "body":"b"
+//    }, function(err, result) {
+//     assert.equal(err, null);
+//     console.log("Inserted a document into the restaurants collection.");
+//     callback();
+//   });
+// };
+
+
+
+
+// var insert =function(){
+
+// MongoClient.connect(url, function(err, db) {
+//   assert.equal(null, err);
+//   insertDocument(db, function() {
+//       db.close();
+//   });
+// });
+// };
 
 
 
 
 
-module.exports = {connect, readAllNotes,insertNote};
+
+
+
+
+
+
+module.exports = {connect, readAllNotes,insertNote,deleteNote};

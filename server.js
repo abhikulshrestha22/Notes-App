@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 var connect = require('./db/db').connect;
 var readAllNotes = require('./db/db').readAllNotes;
 var insertNote = require('./db/db').insertNote;
+var deleteNote = require('./db/db').deleteNote;
 
 
 
@@ -90,6 +91,54 @@ app.post('/write',function(req,res){
 
 
 });
+
+
+//======================================== POST request to delete the note ==========================================//
+
+// A POST request where data is recieved in the JSON format and note is deleted if matched    
+//{"title":"Your title","body":"your body"}
+// the data must have a title and body 
+// else the error would be generated that "Content not complete"
+
+app.post('/delete',function(req,res){
+
+    console.log("in delete method");
+    var title = req.body.title;
+    var body = req.body.body;
+
+    if(title==null || body==null){
+        res.status(400).send({"error":"Content not complete."});
+    }
+    else{
+    var obj = {
+        "title":title,
+        "body":body
+    };
+
+    connect(obj).then(function(obj){
+        deleteNote(obj).then(function(obj){
+            var db = obj.db;
+            var result = obj.result;
+            //console.log(`the title and the body are ${title} and ${body}`);
+            //console.log("after inserting the note");
+            res.send(result);
+            db.close();
+        }).catch(function(err){
+            console.log(err);
+            });
+    }).catch(function(err){
+        console.log(err);
+    });
+
+    };
+
+
+
+});
+
+
+
+
 
 app.listen(3000);
 
