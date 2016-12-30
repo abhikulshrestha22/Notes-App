@@ -1,26 +1,28 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://localhost:27017/notesapp';
+var collectionName = 'notes';
 
 
-//===========================Connect to the database to read============================================//
-var connect = function(){
-    var p1 = new Promise(function(resolve,reject){
-        MongoClient.connect(url).then(function(db){
-            console.log("resolving from mongoclient connect");
-            resolve(db);
-        }).catch(function(err){
-             console.log("rejecting from mongoclient connect");
-        reject(err);
-        });
-    });
+// //===========================Connect to the database to read============================================//
+// var connect = function(){
+//     var p1 = new Promise(function(resolve,reject){
+//         MongoClient.connect(url).then(function(db){
+//             console.log("resolving from mongoclient connect");
+//             resolve(db);
+//         }).catch(function(err){
+//              console.log("rejecting from mongoclient connect");
+//         reject(err);
+//         });
+//     });
 
-    return p1;
-};
+//     return p1;
+// };
 
-//===========================Connect to the database to write============================================//
-var connectToWrite = function(obj){
+
+//===========================Connect to the database============================================//
+var connect = function(obj){
     var p1 = new Promise(function(resolve,reject){
         MongoClient.connect(url).then(function(db){
            
@@ -45,7 +47,7 @@ var readAllNotes = function(obj){
         var db = obj.db;
         //var cursor = db.collection('restaurants').find();
         //cursor.each().
-        var collection = db.collection('restaurants');
+        var collection = db.collection(collectionName);
         var cursor = collection.find({});
         cursor.each(function(err,doc){
             if(err){
@@ -71,7 +73,7 @@ var insertNote = function(obj){
     var body = obj.body;
     var db = obj.db;
     var p1 = new Promise(function(resolve,reject){
-        db.collection('restaurants').insertOne({
+        db.collection(collectionName).insertOne({
             "title":title,
             "body":body
         }, function(err,result){
@@ -79,7 +81,7 @@ var insertNote = function(obj){
                 reject(err);
             }
             else{
-                console.log(`this is the log when the data is inserted ${result}` );
+                console.log(`this is the log when the data is inserted` );
 
                 var obj = {
                     "result":result,
@@ -100,7 +102,7 @@ var insertNote = function(obj){
 
 
 var insertDocument = function(db, callback) {
-   db.collection('restaurants').insertOne( {
+   db.collection(collectionName).insertOne( {
       "title":"a",
       "body":"b"
    }, function(err, result) {
@@ -133,4 +135,4 @@ MongoClient.connect(url, function(err, db) {
 
 
 
-module.exports = {connect, readAllNotes,insertNote,connectToWrite};
+module.exports = {connect, readAllNotes,insertNote};

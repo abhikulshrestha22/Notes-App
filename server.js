@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 var app = express();
 
-//app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
@@ -52,16 +52,26 @@ app.get('/readall',function(req,res){
 
 //======================================== POST request to write the note ==========================================//
 
+// A POST request where data is recieved in the JSON format     {"title":"Your title","body":"your body"}
+// the data must have a title and body 
+// else the error would be generated that "Content not complete"
+
 app.post('/write',function(req,res){
 
-    var title= "first note";
-    var body = "first note body";
+    console.log(req.body.title);
+    var title = req.body.title;
+    var body = req.body.body;
+
+    if(title==null || body==null){
+        res.status(400).send({"error":"Content not complete."});
+    }
+    else{
     var obj = {
         "title":title,
         "body":body
     };
 
-    connectToWrite(obj).then(function(obj){
+    connect(obj).then(function(obj){
        //console.log(`the title and the body are ${title} and ${body}`);
         //insertNote(db,title,body).then(function(result){
             //insertNote(obj).then(function(result){
@@ -70,7 +80,7 @@ app.post('/write',function(req,res){
                     var result = obj.result;
              console.log(`the title and the body are ${title} and ${body}`);
             console.log("after inserting the note");
-            console.log(result);
+            res.send(result);
             db.close();
         }).catch(function(err){
             console.log(err);
@@ -78,6 +88,8 @@ app.post('/write',function(req,res){
     }).catch(function(err){
         console.log(err);
     });
+
+    };
 
 
 
