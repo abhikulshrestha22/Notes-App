@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 var connect = require('./db/db').connect;
 var readAllNotes = require('./db/db').readAllNotes;
 var insertNote = require('./db/db').insertNote;
-var connectToWrite = require('./db/db').connectToWrite;
 
 
 
@@ -24,17 +23,17 @@ var connectToWrite = require('./db/db').connectToWrite;
 app.get('/readall',function(req,res){
 
     //connect().then(function(db){
-    connectToWrite({}).then(function(obj){
+    connect({}).then(function(obj){
     //var db = obj.db;    
     //console.log(db);
     readAllNotes(obj).then(function(obj){
         var db = obj.db;
-        var doc = obj.doc;
-         console.log("doc is thisssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-                console.log(`${doc}`);
+        var docsArray = obj.docsArray;
+         //console.log("doc is thisssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+                //console.log(`${doc}`);
                
          console.log("resolving after readAllNotes");
-        res.send(doc);
+        res.send(docsArray);
         db.close();
     }).catch(function(err){
          console.log("rejecting after readAllNotes");
@@ -72,19 +71,16 @@ app.post('/write',function(req,res){
     };
 
     connect(obj).then(function(obj){
-       //console.log(`the title and the body are ${title} and ${body}`);
-        //insertNote(db,title,body).then(function(result){
-            //insertNote(obj).then(function(result){
-                insertNote(obj).then(function(obj){
-                    var db = obj.db;
-                    var result = obj.result;
-             console.log(`the title and the body are ${title} and ${body}`);
+        insertNote(obj).then(function(obj){
+            var db = obj.db;
+            var result = obj.result;
+            console.log(`the title and the body are ${title} and ${body}`);
             console.log("after inserting the note");
             res.send(result);
             db.close();
         }).catch(function(err){
             console.log(err);
-        });
+            });
     }).catch(function(err){
         console.log(err);
     });

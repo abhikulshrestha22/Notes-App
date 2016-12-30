@@ -48,16 +48,35 @@ var readAllNotes = function(obj){
         //var cursor = db.collection('restaurants').find();
         //cursor.each().
         var collection = db.collection(collectionName);
-        var cursor = collection.find({});
-        cursor.each(function(err,doc){
+        
+        collection.find({}).toArray(function(err,docsArray){
             if(err){
                 reject(err);
             }
             else{
-                obj.doc = doc;
+                //console.log(docsArray);
+                obj.docsArray = docsArray;
                 resolve(obj);
             }
         });
+        
+        
+        
+        
+        
+        
+        
+        
+        // var cursor = collection.find({});
+        // cursor.each(function(err,doc){
+        //     if(err){
+        //         reject(err);
+        //     }
+        //     else{
+        //         obj.doc = doc;
+        //         resolve(obj);
+        //     }
+        // });
         
     });
     
