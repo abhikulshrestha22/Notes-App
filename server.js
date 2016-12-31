@@ -8,6 +8,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
+var path = __dirname + '/views/';
+
+app.use(express.static(path));
+
+
 var connect = require('./db/db').connect;
 var readAllNotes = require('./db/db').readAllNotes;
 var insertNote = require('./db/db').insertNote;
@@ -15,9 +20,10 @@ var deleteNote = require('./db/db').deleteNote;
 
 
 
-
-
-//insert();
+//================================ Go to homepage==================================////
+app.get('/',function(req,res){
+    res.sendFile(path+ "index.html");
+});
 
 
 //================================== GET request to read all the notes=================================================//
@@ -44,7 +50,8 @@ app.get('/readall',function(req,res){
     });
 }).catch(
     function(err){
-        console.log(err);
+        res.status(500).send(err.MongoError);
+        console.log(err.MongoError);
     }
 );
 

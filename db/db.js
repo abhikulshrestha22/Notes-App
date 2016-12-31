@@ -106,42 +106,4 @@ var deleteNote = function(obj){
 };
 
 
-
-
-
-
-// var insertDocument = function(db, callback) {
-//    db.collection(collectionName).insertOne( {
-//       "title":"a",
-//       "body":"b"
-//    }, function(err, result) {
-//     assert.equal(err, null);
-//     console.log("Inserted a document into the restaurants collection.");
-//     callback();
-//   });
-// };
-
-
-
-
-// var insert =function(){
-
-// MongoClient.connect(url, function(err, db) {
-//   assert.equal(null, err);
-//   insertDocument(db, function() {
-//       db.close();
-//   });
-// });
-// };
-
-
-
-
-
-
-
-
-
-
-
 module.exports = {connect, readAllNotes,insertNote,deleteNote};
