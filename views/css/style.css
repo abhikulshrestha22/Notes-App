@@ -1,3 +1,30 @@
 h1{
     color:blue;
 }
+
+h4{
+    margin-top: 0px !important;
+}
+
+.add_note_div{
+    height: 230px;
+}
+
+.note_div{
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+.all_notes_div{
+    text-align: center;
+}
+
+
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {float:none !important;
+color: black !important;}

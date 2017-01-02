@@ -64,6 +64,7 @@ app.get('/readall',function(req,res){
 // else the error would be generated that "Content not complete"
 
 app.post('/write',function(req,res){
+    //console.log(req);
 
     console.log(req.body.title);
     var title = req.body.title;
@@ -85,6 +86,7 @@ app.post('/write',function(req,res){
             console.log(`the title and the body are ${title} and ${body}`);
             console.log("after inserting the note");
             res.send(result);
+            console.log(result);
             db.close();
         }).catch(function(err){
             console.log(err);
