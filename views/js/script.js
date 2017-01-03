@@ -5,20 +5,7 @@ $(document).ready(function(){
     //   });
 
 
-    $.post("write",{
-        "title":'from jquery',
-        "body":"body from jquery"
-    }, function(data){
-
-        console.log(data);
-        if(data.n = 1 || data.ok ==1){
-            console.log("added");
-        }
-    },"json").fail(function(jqXHR,textStatus,errorThrown){
-          //alert('woops' + textStatus + errorThrown);
-          //$(".all_notes_div").text(errorThrown);
-          console.log(errorThrown); 
-      });
+    
 
     $.get("readall",function (arrayOfNotes) {
         //alert("Data: " + data);
@@ -48,4 +35,24 @@ $(document).ready(function(){
 });
 
 
-// 2. when that error is solved, use mongod.exe to start db and then check to connect
+function writeNote(){
+    var title = $('#title').val();
+
+    var body = $('#body').val();
+
+    $.post("write",{
+        "title":title,
+        "body":body 
+    }, function(data){
+
+        console.log(data);
+        if(data.n = 1 || data.ok ==1){
+            console.log("added");
+        }
+    },"json").fail(function(jqXHR,textStatus,errorThrown){
+          //alert('woops' + textStatus + errorThrown);
+          //$(".all_notes_div").text(errorThrown);
+          console.log(errorThrown); 
+      });
+
+}

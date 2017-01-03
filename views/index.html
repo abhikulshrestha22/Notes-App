@@ -11,7 +11,30 @@
     <a class="navbar-brand" href="#">Notes App</a>
   </div>
 </nav>
-        <div class="add_note_div"></div>
+
+        <div class="add_note_div">
+                <form onsubmit="writeNote();" name="registration_form" id='registration_form' class="form-inline">
+        <div class="row">
+            <div class="form-group col-xs-5">
+                <label for="title" class="sr-only"></label>
+                <input id="title" class="form-control input-group-lg reg_name" type="text" name="title"
+                       title="Enter first name"
+                       placeholder="First name"/>
+            </div>
+
+            <div class="form-group col-xs-5">
+                <label for="body" class="sr-only"></label>
+                <input id="body" class="form-control input-group-lg reg_name" type="text" name="body"
+                       title="Enter last name"
+                       placeholder="Last name"/>
+            </div>
+            <div class="form-group col-xs-2">
+                <button id="sub_btn" type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+        
+</form>
+        </div>
         <div class="all_notes_div"></div>
         
         </body>
