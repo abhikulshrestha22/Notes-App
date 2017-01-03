@@ -1,7 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/notesapp';
+//var url = 'mongodb://localhost:27017/notesapp';
+var url ='mongodb://notes:notes@ds019976.mlab.com:19976/notesapp';
 var collectionName = 'notes';
 
 
