@@ -20,12 +20,14 @@ h4{
 }
 
 .add_note_div{
-    height: 230px;
+    margin-bottom: 40px;
+    margin-top: 40px;
 }
 
 .note_div{
     margin-top:20px;
     margin-bottom: 20px;
+    height: 20px;
 }
 
 .all_notes_div{

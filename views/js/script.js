@@ -14,7 +14,7 @@ function readAllNotes(){
         var newHtml = [];
 
         for(var i=arrayOfNotes.length;i>0;i--){
-            newHtml.push('<div class = "note_div container"><div class="row'+ (arrayOfNotes.length-i+1)+'"><div class="col-xs-2">'+ (arrayOfNotes.length-i+1) +'</div><div class="col-xs-3"><h4>'+ arrayOfNotes[i-1].title+'</h4></div><div class="col-xs-5">'+ arrayOfNotes[i-1].body +'</div><div class="col-xs-2"><button type="button" class="btn btn-default btn-primary" onclick="delbtnclick(this.id);" id="delbtn'+ (arrayOfNotes.length-i+1) +'">Delete</button></div></div></div>');
+            newHtml.push('<div class = "note_div"><div class="row'+ (arrayOfNotes.length-i+1)+'"><div class="col-xs-1">'+ (arrayOfNotes.length-i+1) +'</div><div class="col-xs-3 title_div"><h4>'+ arrayOfNotes[i-1].title+'</h4></div><div class="col-xs-5 body_div">'+ arrayOfNotes[i-1].body +'</div><div class="col-xs-3"><button type="button" class="btn btn-default btn-primary" onclick="delbtnclick(this.id);" id="delbtn'+ (arrayOfNotes.length-i+1) +'">Delete</button></div></div></div>');
  
     };
 
@@ -52,8 +52,8 @@ function delbtnclick(id){
 numId = id.replace(/^\D+/g,'');
 
 var i=numId;
-var title = $(`.row${i}`).find('.col-xs-3').text();
-var body = $(`.row${i}`).find('.col-xs-5').text();
+var title = $(`.row${i}`).find('.title_div').text();
+var body = $(`.row${i}`).find('.body_div').text();
 
     $.post("delete",{
             "title":title,
