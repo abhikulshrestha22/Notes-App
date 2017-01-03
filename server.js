@@ -7,6 +7,7 @@ var app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+var port = process.env.PORT || 3000;
 
 var path = __dirname + '/views/';
 
@@ -149,7 +150,7 @@ app.post('/delete',function(req,res){
 
 
 
-app.listen(3000);
+app.listen(port);
 
 
 
